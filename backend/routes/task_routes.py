@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import get_jwt
 from models.task import Task
 from db import db
 
@@ -8,7 +9,8 @@ tasks_bp = Blueprint('tasks', __name__)
 @tasks_bp.get('/tasks')
 @jwt_required()
 def get_tasks():
-    user_id = get_jwt_identity()
+    jwt_data = get_jwt()
+    user_id = jwt_data.get('user_id')
 
     tasks = Task.query.filter_by(user_id=user_id).all()
 
@@ -24,7 +26,8 @@ def get_tasks():
 @tasks_bp.post('/tasks')
 @jwt_required()
 def create_task():
-    user_id = get_jwt_identity()
+    jwt_data = get_jwt()
+    user_id = jwt_data.get('user_id')
     data = request.get_json()
 
     new_task = Task(
@@ -42,7 +45,8 @@ def create_task():
 @tasks_bp.put('/tasks/<int:task_id>')
 @jwt_required()
 def update_task(task_id):
-    user_id = get_jwt_identity()
+    jwt_data = get_jwt()
+    user_id = jwt_data.get('user_id')
     data = request.get_json()
 
     task = Task.query.filter_by(id=task_id, user_id=user_id).first()
@@ -61,7 +65,8 @@ def update_task(task_id):
 @tasks_bp.delete('/tasks/<int:task_id>')
 @jwt_required()
 def delete_task(task_id):
-    user_id = get_jwt_identity()
+    jwt_data = get_jwt()
+    user_id = jwt_data.get('user_id')
 
     task = Task.query.filter_by(id=task_id, user_id=user_id).first()
 

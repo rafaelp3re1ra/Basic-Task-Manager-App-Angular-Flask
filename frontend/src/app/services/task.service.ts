@@ -10,15 +10,17 @@ import { AuthService } from './auth.service';
 
 export class TaskService {
 
-  private apiUrl = 'http://localhost:5000/api/tasks';
+  private apiUrl = 'http://localhost:5000/tasks';
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
   private getAuthHeaders(): HttpHeaders {
     const token = this.auth.getToken();
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+    return headers;
   }
 
   getTasks(): Observable<Task[]> {
