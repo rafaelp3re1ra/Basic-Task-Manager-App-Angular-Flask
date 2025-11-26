@@ -26,7 +26,7 @@ export class LoginComponent {
         this.router.navigate(['/tasks']);
       },
       error: () => {
-        this.error = 'The arcane gate denies you, saying only: ‘Return when your knowledge is true.’';
+        this.error = 'The arcane gate denies you; your runes do not align.';
       }
     });
   }

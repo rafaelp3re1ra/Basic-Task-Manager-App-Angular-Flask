@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect x="6" y="4" width="20" height="24" rx="3" fill="#8B4513" stroke="#654321" stroke-width="1"/>
+  <rect x="8" y="6" width="16" height="20" fill="#F4E4BC"/>
+  <text x="16" y="14" text-anchor="middle" font-family="serif" font-size="8" fill="#654321">QL</text>
+  <rect x="10" y="18" width="12" height="1" fill="#654321"/>
+  <rect x="10" y="21" width="8" height="1" fill="#654321"/>
+  <circle cx="22" cy="20" r="2" fill="#654321"/>
+  <path d="M20.5 20l1 1 2.5-2.5" stroke="#F4E4BC" stroke-width="1" fill="none"/>
+</svg>

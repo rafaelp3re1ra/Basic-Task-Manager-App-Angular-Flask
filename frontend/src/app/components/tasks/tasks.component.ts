@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 import { Task } from '../../models/task.model';
 
 @Component({
@@ -15,8 +17,11 @@ export class TasksComponent {
   tasks: Task[] = [];
   newTitle = '';
   newDescription = '';
+  editingTask: Task | null = null;
+  editTitle = '';
+  editDescription = '';
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.loadTasks();
@@ -28,7 +33,7 @@ export class TasksComponent {
     });
   }
 
-addTask() {
+  addTask() {
     const payload = {
       title: this.newTitle,
       description: this.newDescription,
@@ -49,10 +54,36 @@ addTask() {
     });
   }
 
+  editTask(task: Task) {
+    this.editingTask = task;
+    this.editTitle = task.title;
+    this.editDescription = task.description || '';
+  }
+
+  saveEdit() {
+    if (this.editingTask) {
+      const updatedTask: Task = { ...this.editingTask, title: this.editTitle, description: this.editDescription };
+      this.taskService.updateTask(updatedTask).subscribe(() => {
+        this.editingTask = null;
+        this.loadTasks();
+      });
+    }
+  }
+
+  cancelEdit() {
+    this.editingTask = null;
+  }
+
   deleteTask(id: number){
     this.taskService.deleteTask(id).subscribe(() => {
       this.tasks = this.tasks.filter(t => t.id !== id);
     });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.tasks = [];
+    this.router.navigate(['/login']);
   }
 
 }

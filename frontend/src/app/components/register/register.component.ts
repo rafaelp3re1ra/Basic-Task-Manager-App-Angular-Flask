@@ -23,11 +23,11 @@ export class RegisterComponent {
   submit() {
     this.auth.register(this.username, this.password).subscribe({
       next: () => {
-        this.success = 'Thy account is forged in the arcane fires! You may now attempt the login gate.';
+        this.success = 'Thy account is forged in the arcane fires! Step forth and enter the login gate.';
         setTimeout(() => this.router.navigate(['/login']), 3000);
       },
       error: () => {
-        this.error = 'That name echoes with another’s essence. It cannot be yours.';
+        this.error = 'That name echoes with another’s essence. Choose a different one, brave traveler.';
       }
     });
   }

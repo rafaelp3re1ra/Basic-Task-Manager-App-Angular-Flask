@@ -1,21 +1,48 @@
 <div class="tasks-container">
-
-  <h2>Your Tasks</h2>
+  <div class="header">
+    <h2>Thy Quest Log</h2>
+  </div>
 
   <div class="create-task">
-    <input type="text" placeholder="Title" [(ngModel)]="newTitle">
-    <input type="text" placeholder="Description" [(ngModel)]="newDescription">
-    <button (click)="addTask()">Add</button>
+    <input type="text" placeholder="Quest Name" [(ngModel)]="newTitle" />
+    <input
+      type="text"
+      placeholder="Description of the Trial"
+      [(ngModel)]="newDescription"
+    />
+    <button (click)="addTask()">Add Quest</button>
   </div>
 
   <ul>
     <li *ngFor="let task of tasks" [class.done]="task.done">
-      <span (click)="toggleTask(task)">
-        {{ task.title }} - {{ task.description }}
-      </span>
+      <div *ngIf="editingTask !== task">
+        <input
+          type="checkbox"
+          [checked]="task.done"
+          (change)="toggleTask(task)"
+        />
+        <span (click)="toggleTask(task)">
+          {{ task.title }} — {{ task.description }}
+        </span>
 
-      <button (click)="deleteTask(task.id!)">Delete</button>
+        <button (click)="editTask(task)">Rewrite Scroll</button>
+        <button (click)="deleteTask(task.id!)">Abandon Quest</button>
+      </div>
+
+      <div *ngIf="editingTask === task" class="edit-form">
+        <input type="text" [(ngModel)]="editTitle" placeholder="Quest Name" />
+        <input
+          type="text"
+          [(ngModel)]="editDescription"
+          placeholder="Description of the Trial"
+        />
+        <button (click)="saveEdit()">Seal Scroll</button>
+        <button (click)="cancelEdit()">Cancel Ritual</button>
+      </div>
     </li>
   </ul>
 
+  <div class="bottom-container">
+    <button (click)="logout()">Logout</button>
+  </div>
 </div>
