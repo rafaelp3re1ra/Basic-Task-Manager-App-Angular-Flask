@@ -1,5 +1,5 @@
 <div class="login-container">
-  <h2>Login</h2>
+  <h2>Create Account</h2>
 
   <form (ngSubmit)="submit()">
 
@@ -9,8 +9,9 @@
     <label>Password:</label>
     <input type="password" [(ngModel)]="password" name="password" required />
 
-    <button type="submit">Login</button>
+    <button type="submit">Register</button>
 
     <p *ngIf="error" class="error">{{ error }}</p>
+    <p *ngIf="success" class="success">{{ success }}</p>
   </form>
 </div>
