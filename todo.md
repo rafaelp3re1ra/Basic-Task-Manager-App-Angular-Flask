@@ -7,7 +7,7 @@ Through the Angular interface users can:
 
 Technical requirements:
 
-* [ ] Implement REST Public routes (login/register) and private routes (task CRUD)
+* [X] Implement REST Public routes (login/register) and private routes (task CRUD)
 * [X] Use ORM (SQLAlchemy or equivalent)
 * [X] Apply Andgular well-structured components, services, and routes
 
