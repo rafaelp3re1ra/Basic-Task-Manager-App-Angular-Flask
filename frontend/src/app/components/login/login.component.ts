@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-login',
   imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
 
 export class LoginComponent {
@@ -34,7 +34,7 @@ export class LoginComponent {
         this.router.navigate(['/tasks']);
       },
       error: () => {
-        this.error = 'The arcane gate denies you; your runes do not align.';
+        this.error = 'Invalid username or password.';
       }
     });
   }

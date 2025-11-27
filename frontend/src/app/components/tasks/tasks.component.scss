@@ -101,7 +101,68 @@ li.done { opacity: 0.9; }
 	transform: translateY(-1px);
 }
 
-.bottom-container { display:flex; justify-content:flex-end; }
+.bottom-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 12px;
+}
+
+.bottom-container .left-actions {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap; 
+}
+
+.bottom-container .left-actions input[type="password"] {
+	height: 36px;
+	padding: 6px 10px;
+	border-radius: 6px;
+	border: 1px solid rgba(15,23,42,0.08);
+}
+
+.bottom-container .left-actions button.danger {
+	background: #ef4444;
+}
+
+.bottom-container .right-actions {
+	display: flex;
+}
+
+.bottom-container .left-error {
+	margin-left: 8px;
+}
+
+.bottom-container .left-error .error {
+	color: #ef4444;
+	margin: 0;
+	font-size: 0.95rem;
+}
+
+.bottom-container button[disabled] {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.bottom-message {
+	margin-top: 8px;
+	width: 100%;
+}
+
+.bottom-message p {
+	margin: 0;
+	font-size: 0.95rem;
+}
+
+.bottom-message p.error {
+	color: #ef4444;
+}
+
+.bottom-message p.success {
+	color: #10b981;
+}
 
 /* small responsive behavior */
 @media (max-width: 640px) {
@@ -111,5 +172,7 @@ li.done { opacity: 0.9; }
 		align-items: stretch;
 	}
 
-	.tasks-container button { width: 100%; }
+	.tasks-container{
+		max-width: 90%;
+	}
 }

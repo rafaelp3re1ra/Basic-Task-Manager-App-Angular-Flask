@@ -17,4 +17,4 @@ Mandatory:
 
 Extras:
 
-- [ ] Delete account
+- [x] Delete account

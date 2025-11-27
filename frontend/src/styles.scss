@@ -1,4 +1,3 @@
-/* Global minimal styles: center the app and provide a clean, minimal look */
 $primary: #2b6cb0;
 $muted: #6b7280;
 $bg: #f5f7fa;
@@ -15,19 +14,10 @@ body {
 	color: #111827;
 }
 
-/* Center the app-root content */
 app-root {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-}
-
-/* Utility */
-.card {
-	background: $card;
-	border-radius: 8px;
-	box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
-	padding: 24px;
 }
 
 input, button, textarea {
@@ -35,5 +25,15 @@ input, button, textarea {
 }
 
 button {
-	cursor: pointer;
+		cursor: pointer;
+		transition: opacity 160ms ease, transform 120ms ease;
+}
+
+/* Fade and disable pointer for disabled buttons globally */
+button:disabled,
+button[disabled],
+button[aria-disabled="true"] {
+	opacity: 0.6;
+	cursor: not-allowed;
+	pointer-events: none;
 }

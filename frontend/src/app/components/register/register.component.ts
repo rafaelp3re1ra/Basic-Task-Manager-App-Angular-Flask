@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-register',
   imports: [FormsModule, CommonModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrls: ['./register.component.scss']
 })
 
 export class RegisterComponent {
@@ -33,10 +33,10 @@ export class RegisterComponent {
     this.auth.register(username, password).subscribe({
       next: () => {
         this.success = 'Account created successfully! Redirecting to login...';
-        setTimeout(() => this.router.navigate(['/login']), 3000);
+        setTimeout(() => this.router.navigate(['/']), 2000);
       },
       error: () => {
-        this.error = 'That username is already taken. Please choose a different one.';
+        this.error = 'That username is already taken.';
       }
     });
   }

@@ -44,4 +44,14 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
+  deleteAccount(password: string): Observable<any> {
+    const headers = { 'Authorization': `Bearer ${this.getToken()}` };
+    return this.http.delete(`${this.apiUrl}/delete`, { headers, body: { password } });
+  }
+
+  verifyPassword(password: string): Observable<any> {
+    const headers = { 'Authorization': `Bearer ${this.getToken()}` };
+    return this.http.post(`${this.apiUrl}/verify-password`, { password }, { headers });
+  }
+
 }

@@ -21,6 +21,9 @@ export class TasksComponent {
   editTitle = '';
   editDescription = '';
   username = '';
+  deletePassword = '';
+  error = '';
+  successMessage = '';
 
   constructor(private taskService: TaskService, private authService: AuthService, private router: Router) {}
 
@@ -104,6 +107,53 @@ export class TasksComponent {
     this.authService.logout();
     this.tasks = [];
     this.router.navigate(['/login']);
+  }
+
+  deleteAccount() {
+    this.error = '';
+    this.successMessage = '';
+    const pwd = (this.deletePassword || '').trim();
+
+    if (!pwd) {
+      this.error = 'Please enter your password to confirm deletion.';
+      return;
+    }
+
+    this.authService.verifyPassword(pwd).subscribe({
+      next: () => {
+        const confirmed = window.confirm('Password verified. Are you sure you want to permanently delete your account? This action cannot be undone.');
+        if (!confirmed) {
+          return;
+        }
+
+        this.authService.deleteAccount(pwd).subscribe({
+          next: () => {
+            this.deletePassword = '';
+            this.successMessage = 'Account deleted.';
+    
+            setTimeout(() => this.logout(), 1000);
+          },
+          error: (err) => {
+            if (err && err.status === 401) {
+              this.error = 'Incorrect password. Account not deleted.';
+            } else if (err && err.error && err.error.error) {
+              this.error = err.error.error;
+            } else {
+              this.error = 'Account deletion failed. Please try again later.';
+            }
+          }
+        });
+      },
+      error: (err) => {
+        if (err && err.status === 401) {
+          this.error = 'Incorrect password. Please check and try again.';
+        } else if (err && err.error && err.error.error) {
+          this.error = err.error.error;
+        } else {
+          this.error = 'Could not verify password. Try again later.';
+        }
+      }
+    });
   }
 
 }

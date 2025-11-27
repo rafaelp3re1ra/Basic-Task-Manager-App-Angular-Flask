@@ -1,7 +1,7 @@
 <div class="tasks-container">
   <div class="header">
     <h2>Tasks</h2>
-    <p>Welcome, {{ username }}!</p>
+    <h3>Welcome, {{ username }}!</h3>
   </div>
 
   <form class="create-task" #createForm="ngForm" (ngSubmit)="addTask()">
@@ -77,6 +77,30 @@
   </ul>
 
   <div class="bottom-container">
-    <button (click)="logout()">Logout</button>
+    <form class="left-actions" (ngSubmit)="deleteAccount()">
+      <input
+        type="password"
+        name="deletePassword"
+        placeholder="Enter password to delete account"
+        [(ngModel)]="deletePassword"
+      />
+      <button
+        type="submit"
+        class="danger"
+        [disabled]="!deletePassword || !deletePassword.trim()"
+      >
+        Delete Account
+      </button>
+    </form>
+
+    <div class="right-actions">
+      <button (click)="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="bottom-message" *ngIf="error || successMessage">
+    <p [class.error]="!!error" [class.success]="!!successMessage">
+      {{ error || successMessage }}
+    </p>
   </div>
 </div>

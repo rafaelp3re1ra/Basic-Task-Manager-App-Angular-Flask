@@ -23,10 +23,12 @@
       />
     </div>
     <button type="submit" [disabled]="registerForm.invalid">Register</button>
+  </form>
 
+  <div>
     <p *ngIf="error" class="error">{{ error }}</p>
     <p *ngIf="success" class="success">{{ success }}</p>
-  </form>
+  </div>
 
   <div>
     <p>Already have an account? <a href="/">Login here!</a></p>
