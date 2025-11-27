@@ -1,44 +1,78 @@
 <div class="tasks-container">
   <div class="header">
-    <h2>Thy Quest Log</h2>
+    <h2>Tasks</h2>
+    <p>Welcome, {{ username }}!</p>
   </div>
 
-  <div class="create-task">
-    <input type="text" placeholder="Quest Name" [(ngModel)]="newTitle" />
+  <form class="create-task" #createForm="ngForm" (ngSubmit)="addTask()">
     <input
       type="text"
-      placeholder="Description of the Trial"
+      name="newTitle"
+      placeholder="Task Title"
+      [(ngModel)]="newTitle"
+      required
+    />
+    <input
+      type="text"
+      name="newDescription"
+      placeholder="Task Description"
       [(ngModel)]="newDescription"
     />
-    <button (click)="addTask()">Add Quest</button>
-  </div>
+    <button type="submit" [disabled]="createForm.invalid">Add Task</button>
+  </form>
 
   <ul>
     <li *ngFor="let task of tasks" [class.done]="task.done">
-      <div *ngIf="editingTask !== task">
+      <div *ngIf="editingTask !== task" class="task-row">
         <input
           type="checkbox"
           [checked]="task.done"
           (change)="toggleTask(task)"
         />
-        <span (click)="toggleTask(task)">
+        <span class="task-content" (click)="toggleTask(task)">
           {{ task.title }} — {{ task.description }}
         </span>
 
-        <button (click)="editTask(task)">Rewrite Scroll</button>
-        <button (click)="deleteTask(task.id!)">Abandon Quest</button>
+        <div class="actions">
+          <ng-container *ngIf="!task.done; else onlyDelete">
+            <button (click)="editTask(task)">Edit</button>
+            <button (click)="confirmDelete(task.id!, task.title)">
+              Delete
+            </button>
+          </ng-container>
+          <ng-template #onlyDelete>
+            <button
+              class="delete-only"
+              (click)="confirmDelete(task.id!, task.title)"
+            >
+              Delete
+            </button>
+          </ng-template>
+        </div>
       </div>
 
-      <div *ngIf="editingTask === task" class="edit-form">
-        <input type="text" [(ngModel)]="editTitle" placeholder="Quest Name" />
+      <form
+        *ngIf="editingTask === task"
+        class="edit-form"
+        #editForm="ngForm"
+        (ngSubmit)="saveEdit()"
+      >
         <input
           type="text"
-          [(ngModel)]="editDescription"
-          placeholder="Description of the Trial"
+          name="editTitle"
+          [(ngModel)]="editTitle"
+          placeholder="Task Title"
+          required
         />
-        <button (click)="saveEdit()">Seal Scroll</button>
-        <button (click)="cancelEdit()">Cancel Ritual</button>
-      </div>
+        <input
+          type="text"
+          name="editDescription"
+          [(ngModel)]="editDescription"
+          placeholder="Task Description"
+        />
+        <button type="submit" [disabled]="editForm.invalid">Save</button>
+        <button type="button" (click)="cancelEdit()">Cancel</button>
+      </form>
     </li>
   </ul>
 

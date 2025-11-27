@@ -1,0 +1,66 @@
+/* Shared styles for auth (login/register) */
+@use './vars' as *;
+.login-container {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-container h2 {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  text-align: center;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login-container label {
+  font-size: 13px;
+  color: $muted;
+}
+
+.login-container input,
+.login-container button {
+  box-sizing: border-box;
+  height: 40px;
+}
+
+.login-container input {
+  padding: 8px 12px;
+  border: 1px solid rgba(15,23,42,0.08);
+  border-radius: 6px;
+  background: transparent;
+  display: block;
+  width: 100%;
+}
+
+.login-container button {
+  padding: 0 14px;
+  border-radius: 6px;
+  border: none;
+  background: $primary;
+  color: white;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container .error {
+  color: #b91c1c;
+  font-size: 13px;
+  text-align: center;
+}
+
+.login-container .success {
+  color: #15803d;
+  font-size: 13px;
+  text-align: center;
+}

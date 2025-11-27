@@ -1,37 +1,34 @@
 <div class="login-container">
-  <h2>Forge Account</h2>
+  <h2>Create Account</h2>
 
-  <form (ngSubmit)="submit()">
+  <form #registerForm="ngForm" (ngSubmit)="submit()">
     <div>
-      <label>Chosen Name:</label>
+      <label>Username:</label>
       <input
         type="text"
         [(ngModel)]="username"
         name="username"
-        placeholder="Thy adventurer’s name"
+        placeholder="Username"
         required
       />
     </div>
     <div>
-      <label>Secret Word:</label>
+      <label>Password:</label>
       <input
         type="password"
         [(ngModel)]="password"
         name="password"
-        placeholder="A secret known only to thee"
+        placeholder="Password"
         required
       />
     </div>
-    <button type="submit">Inscribe Thy Name</button>
+    <button type="submit" [disabled]="registerForm.invalid">Register</button>
 
     <p *ngIf="error" class="error">{{ error }}</p>
     <p *ngIf="success" class="success">{{ success }}</p>
   </form>
 
   <div>
-    <p>
-      Already a member of the guild? <a href="/">Enter the Realm</a> and
-      continue thy quest.
-    </p>
+    <p>Already have an account? <a href="/">Login here!</a></p>
   </div>
 </div>

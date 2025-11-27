@@ -20,7 +20,15 @@ export class LoginComponent {
   constructor(private auth: AuthService, private router: Router) { }
 
   submit() {
-    this.auth.login(this.username, this.password).subscribe({
+    this.error = '';
+    const username = this.username?.trim();
+    const password = this.password ?? '';
+    if (!username || !password) {
+      this.error = 'Username and password are required.';
+      return;
+    }
+
+    this.auth.login(username, password).subscribe({
       next: (res) => {
         this.auth.saveToken(res.token);
         this.router.navigate(['/tasks']);

@@ -21,13 +21,22 @@ export class RegisterComponent {
   constructor(private auth: AuthService, private router: Router) { }
 
   submit() {
-    this.auth.register(this.username, this.password).subscribe({
+    this.error = '';
+    this.success = '';
+    const username = this.username?.trim();
+    const password = this.password ?? '';
+    if (!username || !password) {
+      this.error = 'Username and password are required.';
+      return;
+    }
+
+    this.auth.register(username, password).subscribe({
       next: () => {
-        this.success = 'Thy account is forged in the arcane fires! Step forth and enter the login gate.';
+        this.success = 'Account created successfully! Redirecting to login...';
         setTimeout(() => this.router.navigate(['/login']), 3000);
       },
       error: () => {
-        this.error = 'That name echoes with another’s essence. Choose a different one, brave traveler.';
+        this.error = 'That username is already taken. Please choose a different one.';
       }
     });
   }

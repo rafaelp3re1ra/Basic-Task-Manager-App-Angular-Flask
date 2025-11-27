@@ -20,11 +20,13 @@ export class TasksComponent {
   editingTask: Task | null = null;
   editTitle = '';
   editDescription = '';
+  username = '';
 
   constructor(private taskService: TaskService, private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.loadTasks();
+    this.username = this.authService.getUsername() ?? '';
   }
 
   loadTasks() { 
@@ -34,8 +36,13 @@ export class TasksComponent {
   }
 
   addTask() {
+    const title = this.newTitle?.trim();
+    if (!title) {
+      return;
+    }
+
     const payload = {
-      title: this.newTitle,
+      title,
       description: this.newDescription,
       done: false
     };
@@ -62,7 +69,12 @@ export class TasksComponent {
 
   saveEdit() {
     if (this.editingTask) {
-      const updatedTask: Task = { ...this.editingTask, title: this.editTitle, description: this.editDescription };
+      const title = this.editTitle?.trim();
+      if (!title) {
+        return;
+      }
+
+      const updatedTask: Task = { ...this.editingTask, title, description: this.editDescription };
       this.taskService.updateTask(updatedTask).subscribe(() => {
         this.editingTask = null;
         this.loadTasks();
@@ -78,6 +90,14 @@ export class TasksComponent {
     this.taskService.deleteTask(id).subscribe(() => {
       this.tasks = this.tasks.filter(t => t.id !== id);
     });
+  }
+
+  confirmDelete(id: number, title?: string) {
+    const name = title ? ` \"${title}\"` : '';
+    const ok = window.confirm(`Delete task${name}? This action cannot be undone.`);
+    if (ok) {
+      this.deleteTask(id);
+    }
   }
 
   logout() {

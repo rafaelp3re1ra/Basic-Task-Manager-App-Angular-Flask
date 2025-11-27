@@ -1,0 +1,115 @@
+/* Minimal centered styles for tasks component */
+@use '../../shared/vars' as *;
+.tasks-container {
+	width: 100%;
+	max-width: 760px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.tasks-container .header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.tasks-container .create-task,
+.tasks-container .edit-form {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+/* Make inputs and buttons the same height and align their content */
+.tasks-container input[type="text"],
+.tasks-container button {
+	box-sizing: border-box;
+	height: 40px;
+}
+
+.tasks-container input[type="text"] {
+	padding: 8px 12px;
+	border: 1px solid rgba(15,23,42,0.08);
+	border-radius: 6px;
+	flex: 1 1 auto;
+	display: block;
+}
+
+.tasks-container button {
+	padding: 0 14px;
+	border-radius: 6px;
+	border: none;
+	background: $primary;
+	color: white;
+	font-weight: 600;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+
+
+li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px 12px;
+	border-radius: 8px;
+	background: #fff;
+	box-shadow: 0 4px 10px rgba(2,6,23,0.04);
+}
+
+li.done { opacity: 0.9; }
+
+/* layout for row: checkbox, content, actions on right */
+.task-row {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	gap: 12px;
+}
+
+.task-content {
+	flex: 1 1 auto;
+	cursor: pointer;
+	color: inherit;
+	word-break: break-word;
+}
+
+/* actions group aligned to the right */
+.actions {
+	display: flex;
+	gap: 8px;
+	margin-left: auto;
+}
+
+/* completed task text styles */
+.tasks-container li.done .task-content {
+	text-decoration: line-through;
+	color: rgba(0,0,0,0.45);
+}
+
+/* delete-only style (visible when task is complete) */
+.actions .delete-only {
+	background: #ef4444; /* red */
+}
+
+.actions button.delete-only:hover {
+	transform: translateY(-1px);
+}
+
+.bottom-container { display:flex; justify-content:flex-end; }
+
+/* small responsive behavior */
+@media (max-width: 640px) {
+	.tasks-container .create-task,
+	.tasks-container .edit-form {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.tasks-container button { width: 100%; }
+}

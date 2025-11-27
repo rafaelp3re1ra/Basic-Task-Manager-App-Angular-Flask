@@ -14,3 +14,7 @@ Technical requirements:
 Mandatory:
 
 - Use best development practices
+
+Extras:
+
+- [ ] Delete account
